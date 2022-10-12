@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>他のスタンプ</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/mergeCSS.css">
+    <link rel="stylesheet" href="../css/shape.css">
+    <link rel="stylesheet" href="../css/otherStamp.css">
+</head>
+
+<body style="overflow: hidden;">
+    <div class="manche">
+
+		<img src="../img/Picture1.png" style="width: 130px;
+			padding: 5px;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50% , -50%);">
+
+		<!-- <div class="cloudCss"></div> -->
+	</div>
+    <div class="headerPWA" style="height: 22px;">
+        <div class="dragheader" style="width: calc(100% - 33px);height: 22px;"></div>
+        <div class="titleApp" style="font-size: 12px;left: 50%;transform: translate(-50%,-50%);">他のスタンプ</div>
+        <i class="fa fa-times" 
+            style=" font-size: 14px; right: 10px;position: absolute;top: 3px; color: white;cursor: pointer;"
+            onclick="closeOtherStampSign()"></i>
+    </div>
+    <div class="bodyOtherStamp">
+        <div id='line-size-change' class="dotParent leftLine" style="display: none;left: 155px;top: 26px;">
+            <div class="dotContainer" value="0.25" style="height: 20px;">
+                <button class="btn btn-padding-0" style="font-size: 6pt;">0.25 pt</button>
+                <div class="dotItem">
+                    <div class="size-025"></div>
+                </div>
+            </div>
+            <div class="dotContainer" value="0.5" style="height: 20px;">
+                <button class="btn btn-padding-0" style="font-size: 6.5pt;">0.5 pt</button>
+                <div class="dotItem">
+                    <div class="size-05"></div>
+                </div>
+            </div>
+            <div class="dotContainer" value="0.75" style="height: 20px;">
+                <button class="btn btn-padding-0" style="font-size: 7pt;">0.75 pt</button>
+                <div class="dotItem">
+                    <div class="size-075"></div>
+                </div>
+            </div>
+            <div class="dotContainer rowSelected" value="1" style="height: 20px;">
+                <button class="btn btn-padding-0" style="font-size: 7.5pt">1 pt</button>
+                <div class="dotItem">
+                    <div class="size-1"></div>
+                </div>
+            </div>
+            <div class="dotContainer" value="1.5" style="height: 25px;">
+                <button class="btn btn-padding-0" style="font-size: 8pt;">1.5 pt</button>
+                <div class="dotItem">
+                    <div class="size-15"></div>
+                </div>
+            </div>
+            <div class="dotContainer " value="2.25" style="height: 25px;">
+                <button class="btn btn-padding-0" style="font-size: 8.5pt;">2.25 pt</button>
+                <div class="dotItem">
+                    <div class="size-225"></div>
+                </div>
+            </div>
+            <div class="dotContainer" value="3" style="height: 25px;">
+                <button class="btn btn-padding-0" style="font-size: 9pt;">3 pt</button>
+                <div class="dotItem">
+                    <div class="size-3"></div>
+                </div>
+            </div>
+            <div class="dotContainer" value="4.5" style="height: 25px;">
+                <button class="btn btn-padding-0" style="font-size: 9.5pt;">4.5 pt</button>
+                <div class="dotItem">
+                    <div class="size-45"></div>
+                </div>
+            </div>
+            <div class="dotContainer" value="6" style="height: 30px;">
+                <button class="btn btn-padding-0" style="font-size: 10pt;">6 pt</button>
+                <div class="dotItem">
+                    <div class="size-6"></div>
+                </div>
+            </div>
+        </div>
+        <div id='color-change' class="leftColor" style="display: none;left: 340px; top: 26px;">
+            <div class="btn-color-popup" value="#ff0000" style="background-color: #ff0000;"></div>
+            <div class="btn-color-popup" value="#ffff00" style="background-color: #ffff00;"></div>
+            <div class="btn-color-popup" value="#00ff00" style="background-color: #00ff00;"></div>
+            <div class="btn-color-popup" value="#00ffff" style="background-color: #00ffff;"></div>
+            <div class="btn-color-popup" value="#ffa500" style="background-color: #ffa500;"></div>
+            <div class="btn-color-popup" value="#008000" style="background-color: #008000;"></div>
+            <div class="btn-color-popup" value="#0000ff" style="background-color: #0000ff;"></div>
+            <div class="btn-color-popup" value="#ff1493" style="background-color: #ff1493;"></div>
+            <div class="btn-color-popup colorSelected" value="#000000" style="background-color: #000000;"></div>
+            <div class="btn-color-popup" value="#808080" style="background-color: #808080;"></div>
+            <div class="btn-color-popup" value="#800080" style="background-color: #800080;"></div>
+            <div class="btn-color-popup" value="#ffffff" style="background-color: #ffffff;"></div>
+        </div>
+        <div id='highlightchange' class="highlightOpacity" style="display: none;left: 245px;top: 26px;">
+            <div class="hlItem" value="0.7">70%</div>
+            <div class="hlItem" value="0.5">50%</div>
+            <div class="hlItem" value="0.3">30%</div>
+        </div>
+        <div class="shapeTypeContainer" style="right: 160px;">
+            <div class="itemShape" onclick="shapeChose2('arrow')">
+                <i class="fa fa-long-arrow-right iconShape" aria-hidden="true"></i>
+            </div>
+            <div class="itemShape" onclick="shapeChose2('twoWayArrow')">
+                <i class="fa fa-arrows-h iconShape" aria-hidden="true"></i>
+            </div>
+            <div class="itemShape" onclick="shapeChose2('line')">
+                <i class="fa fa-minus iconShape" aria-hidden="true"></i>
+            </div>
+            <div class="itemShape" onclick="shapeChose2('circle')">
+                <i class="fa fa-circle-o iconShape" aria-hidden="true"></i>
+            </div>
+            <div class="itemShape" onclick="shapeChose2('rectangle')">
+                <div class="chunhat iconShape"></div>
+            </div>
+        </div>
+        <div class="pannelOtherStamp">
+            <div class="fixWPannel">
+                
+                <select id="setSize" style="width: 40px;height: 19px;margin-top: 0px;font-size: 10px;" onclick="hidePanelOption()">
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12" selected>12</option>
+                    <option value="14">14</option>
+                    <option value="16">16</option>
+                    <option value="18">18</option>
+                    <option value="20">20</option>
+                    <option value="22">22</option>
+                    <option value="24">24</option>
+                    <option value="26">26</option>
+                    <option value="28">28</option>
+                </select>
+                <button class="width26 btn btn-padding-0 addtext" title="Text" onclick="addText()">
+                    <!-- <i class="fa fa-text-width btn-disable"></i> -->
+                    <div style="height: 15px;overflow: hidden;">
+                        <i class="fa fa-text-width btn-disable" style="font-size: 19px;"></i>
+                    </div>
+                </button>
+                <button class="width26 btn btn-padding-0 pencilc" title="Pencil" onclick="setPaint()">
+                    <i class="fa fa-pencil"></i>
+                </button>
+
+                <button class="width26 btn btn-padding-0 undo" title="Undo" onclick="undo()"><i
+                        class="fa fa-undo fa-undoCustom btn-disable"></i></button>
+                <button class="width26 btn btn-padding-0 redo" title="Redo" onclick="redo()"><i
+                        class="fa fa-repeat fa-repeatCustom btn-disable"></i></button>
+                <button class="width26 btn btn-padding-0 cucrom" title="Eraser" onclick="setEarserOtherStamp()"><i
+                        class="fa fa-eraser btn-disable"></i></button>
+                <button id="highLightClick" class="width26 btn btn-padding-0 brushT" title="Highlight" onclick="setPaint(true)">
+                    <!-- <i class="fa fa-paint-brush btn-disable"></i> -->
+                    <img src="../img/marker.png" class="fa-paint-brush btn-disable" style="width:17px" id="pennew">
+                </button>
+                <button class="width26 btn btn-padding-0" title="image" id="addImage" onclick="openFileChose()"><i
+                        class="fa fa-picture-o btn-disable" ></i></button>
+                <div id="btn-change-size-tb" style="cursor: pointer;width: 30px;height: 18px;"
+                    class="col-sm-2 col-xs-2 col-lg-2 btn btn-padding-0 dotParents" title="Size Paint" onclick="openChangeSizeDot()">
+                    <div style="text-align: -webkit-center;">
+                        <div class="line-0"></div>
+                        <div class="line-1"></div>
+                        <div class="line-2"></div>
+                        <div class="line-3"></div>
+                    </div>
+                </div>
+                <div id="btn-change-color-tb" style="cursor: pointer;"
+                    class="col-sm-2 col-xs-2 col-lg-2 btn btn-padding-0 btn-color dotParens" title="Color" onclick="setColorOST()">
+                </div>
+                <div class="shapeMode" onclick="openShape2(event)" style="right: 0px !important;top: 2px;">
+                    <img src="../img/shapes.png" style="width:20px">
+                </div>
+            </div>
+            <div class="btnOtherStampCtn">
+                <button class="btn btn-default btnOtherStamp" style="margin-right: 5px;" onclick="saveOtherStamp()">登録</button>
+                <button class="btn btn-default btnOtherStamp" onclick="cancelOtherStamp()">キャンセル</button>
+            </div>
+        </div>
+        <div class="containerCanvasStamp">
+            <div id="containerCanvasStamp" class="con conOtherStamp" style="width: 100%;height:100%;position: relative;" rotate="0" scale="1" align="true">
+                <canvas id="otherStampCVDraf" class="curPen" width="400" height="400" style="z-index: 2;"></canvas>
+                <canvas id="otherStampCVMain" width="400" height="400"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="updatePop" id="errorInsideSignStamp">
+        <div class="errorContainer" style="width: 310px;">
+            <div class="header-update">PDF書き込みアプリ</div>
+            <div class="content-update" style="min-height: 45px;">
+                <div id="body-errorMergeSignStamp" class="error body-icon"
+                    style="position:  absolute;top: 50%;transform: translateY(-50%);left: 15px;">
+                    <div class="div1"></div>
+                    <div class="div2"></div>
+                </div>
+                <i id="body-infoMergeStamp" class="fa fa-info-circle body-icon"
+                    style="font-size:38px;color:#2385BA;position:  absolute;top: 50%;transform: translateY(-50%);left: 15px;"></i>
+                <div id="modal-messageSignStamp"
+                    style="position: absolute;white-space: normal;top: 50%;left: 55px;transform: translateY(-50%); width: calc(100% - 60px);font-size: 11px;">
+                </div>
+            </div>
+            <div class="btn-update">
+                <div class="fkbestAbsolute">
+                    <button id="onOk" onclick="closeOtherStampSign()" class="btn btn-default"
+                        style="margin-left: 5px;">OK</button>
+                    <button id="onCancel" onclick="closeMessageSignStamp()" class="btn btn-default">キャンセル</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>let $ = require('jquery');</script>
+    <script>require('popper.js');</script>
+    <script>require('bootstrap');</script>
+    <script src="../js/variable.js"></script>
+    <script src="../js/controllKey.js"></script>
+    <script src="../js/commonFunc.js"></script>
+    <script src="../js/step2/FKShape.js"></script>
+    <script src="../js/step2/FKOtherStamp.js"></script>
+</body>

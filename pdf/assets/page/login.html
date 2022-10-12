@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=11">
+    <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../assets/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../../assets/css/login.css">
+    <script>let $ = require('jquery');</script>
+	<script>require('popper.js');</script>
+    <script>require('bootstrap');</script>
+    <script src="../../login.js"></script>
+</head>
+<body>
+    <div class="manche"><img src="../img/Picture1.png" style="width: 130px;
+        padding: 5px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50% , -50%);"></div>
+<div class="contanerMuratec">
+    <div class="crollApp"></div>
+    <div class="closeApp" id="closeApp">
+        <div><img src="../img/close.png" style="width: 20px;cursor: pointer;" id="closeQuit" s></div>
+        <div style="font-size: 11px;
+        display: inline-block;
+        color: white;">閉じる</div>
+    </div>
+	<img src="../img/Picture1.png" style="width:180px;padding: 5px;margin-top: 40px;">
+    <form id="loginForm" style="text-align: center;" >
+        <h3 style="color: white;margin-bottom: 0px;font-size: 20px;">&nbsp;</h3>
+		<div class="form-group width80" >
+			<input value="" class="inputPWA" type="text" id="userid" placeholder="ID">
+		</div>
+		<div class="form-group width80" >
+            <input value="" class="inputPWA" type="password" id="password" placeholder="パスワード">
+		</div>
+		<div class="form-group width80" style="margin: 10px auto;">
+			<h5 id="lable-message-error" style="font-size:11px;width: 100%;color: red;height: 13px;"></h5>
+		</div>
+		<div class="form-group" >
+			<div></div>
+			<div>
+				<button value="login" class="btnPWA" id="login" type="submit" >ログイン</button>
+			</div>
+		</div>
+    </form>
+    <div class="tablePWA" id="tablePWA">
+        <!-- <div class="headerTableDetailPWA">お知らせ</div>
+        <div class="bodyTableDetailPWA" id="bodyTableDetailPWA">
+           
+        </div> -->
+    </div>
+    <div class="overlay" id="loader">
+        <div class="loader"></div>
+    </div>
+    <div class="drawingSearchOverlay" id="drawingSearchOverlay"></div>
+    <div class="udpater" id="updater">
+        <div class="updatePop">
+            <div class="header-update">PDF書き込みアプリ</div>
+            <div    min-height: 45px;>
+                <span  id="updatecontent" class="content-update"></span>
+            </div>
+            <div class="btn-update">
+                <button id="onInstall" class="btn btn-default" style="display: none;">インストール</button>
+                <button id="onUpdate" class="btn btn-default">OK</button>
+                <button id="onUpdateCancel" class="btn btn-default">キャンセル</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="errorContainer" id="errorContainer">
+        <div class="updatePop">
+            <div class="header-update">PDF書き込みアプリ</div>
+            <div class="content-update" style="min-height: 45px;">
+                <div id="body-error" class="error  body-icon" style="position:  absolute;top: 50%;transform: translateY(-50%);left: 15px;">
+                    <div class="div1"></div>
+                    <div class="div2"></div>
+                </div>
+                <i id="body-info" class="fa fa-info-circle body-icon" style="font-size:38px;color:#2385BA;position:  absolute;top: 50%;transform: translateY(-50%);left: 15px;"></i>
+                <div id="modal-message" style="position: absolute;white-space: normal;top: 50%;left: 55px;transform: translateY(-50%); width: calc(100% - 60px);"></div>        
+            </div>
+            <div class="btn-update">
+                <button id="onOk" class="btn btn-default">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

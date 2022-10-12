@@ -1,0 +1,520 @@
+.shapeTypeContainer {
+    width: 160px;
+    position: absolute;
+    top: 26px;
+    border: outset;
+    overflow-y: auto;
+    z-index: 3;
+    background-color: white;
+    box-shadow: 1px 1px 5px #00000096;
+    display: none;
+    flex-wrap: wrap;
+    padding: 10px;
+    display: none;
+    right: -85px;
+}
+
+.shapeTypeContainer.active {
+    display: flex !important;
+}
+
+.shapeTypeContainer .itemShape {
+    width: 40px;
+    line-height: 40px;
+    border: 1px solid #e8e7e7;
+    margin: 2px;
+    position: relative;
+    height: 40px;
+}
+
+.shapeTypeContainer img {
+    width: 20px;
+}
+
+
+.iconShape {
+    font-size: 25px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+.chunhat {
+    width: 25px;
+    height: 18px;
+    border: 2px solid black;
+}
+
+.itemShape:hover .chunhat {
+    border: 2px solid #557ebe;
+}
+
+.itemShape:hover .iconShape {
+    color: #557ebe;
+}
+
+.shapeMode {
+    position: absolute;
+    top: 0;
+    right: 50px;
+    width: 20px;
+    cursor: pointer;
+}
+
+.shapeMode img {
+    opacity: 0.8;
+}
+
+.svg-container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.FKShape {
+    cursor: url(../img/hoverShape.png) 12 12, auto;
+    /* transition: 0.05s; */
+}
+
+.selectShape.selectShape {
+    cursor: url(../img/moveShape.png) 12 12, auto;
+}
+
+.rectBorShape {
+    cursor: url(../img/moveShape.png) 12 12, auto;
+}
+
+.FKShape.hover {
+    /* stroke: red; */
+    opacity: .7;
+}
+.FKtextAreaF{
+    cursor: url(../img/hoverShape.png) 12 12, auto;
+}
+.FKtextAreaF:hover{
+    opacity: 0.7;
+}
+
+.FKmarker.hover {
+    /* fill: red; */
+    /* opacity: .7; */
+}
+
+.dotShape {
+    stroke: black;
+    fill: white;
+    stroke-width: 2px;
+    background: white;
+    position: absolute;
+    z-index: 3;
+    border-radius: 50%;
+    cursor: url(../img/expand.png) 12 12, auto;
+}
+
+.rectBorShape {
+    fill: transparent;
+    stroke: black;
+    stroke-dasharray: 6, 6;
+    stroke: #557ebe;
+    stroke-width: 2px;
+}
+
+.fcontainer {
+    /* position: absolute; */
+    width: 84px;
+    z-index: 4;
+    transform-origin: 0 0;
+    padding: 10px;
+}
+
+.FkTool {
+    width: 64px;
+    height: 64px;
+    padding: 10px;
+    border: 1px solid #797979;
+    margin-bottom: 5px;
+    cursor: pointer;
+    background: white;
+    box-shadow: 2px 2px 5px #797979;
+}
+
+.FkTool img {
+    width: 40px;
+    height: 40px;
+}
+
+.shapeColor {
+    position: absolute;
+    width: 185px;
+    flex-wrap: wrap;
+    display: flex;
+    background: white;
+    padding: 10px;
+    /* border: 1px solid black; */
+    box-shadow: 1px 1px 5px #636363;
+}
+
+.iShapeColor {
+    width: 30px;
+    height: 30px;
+    margin: 5px;
+    /* border: 2px solid #6f6f6f; */
+    box-shadow: 1px 1px 5px #3e3e3e;
+    cursor: pointer;
+}
+
+.colorCtn {
+    display: none;
+}
+
+.colorCtn.active {
+    display: block;
+}
+
+.tranpCtn {
+    position: absolute;
+    width: 185px;
+    flex-wrap: wrap;
+    display: flex;
+    background: white;
+    box-shadow: 1px 1px 5px #636363;
+    right: -100px;
+    width: 90px;
+    top: 210px;
+    display: none;
+}
+
+.tranpCtn.active {
+    display: block;
+}
+
+.tranpI {
+    width: 90px;
+    padding: 5px;
+    font-size: 24px;
+    border-bottom: 2px solid #adadad;
+    cursor: pointer;
+}
+
+.tranpI:hover {
+    background: #adadad;
+}
+
+.FKtextArea {
+    width: 100%;
+    height: 100%;
+    resize: none;
+    background: transparent;
+    outline: none;
+    border: none;
+    white-space: pre-line;
+    overflow: hidden;
+    padding: 0px;
+    line-height: 1;
+    transform-origin: 0 0;
+    padding: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+
+.thickness {
+    position: absolute;
+    width: 185px;
+    flex-wrap: wrap;
+    display: flex;
+    background: white;
+    box-shadow: 1px 1px 5px #636363;
+    right: -110px;
+    width: 110px;
+    top: 80px;
+    display: none;
+}
+
+.dashStyle {
+    position: absolute;
+    width: 185px;
+    flex-wrap: wrap;
+    display: flex;
+    background: white;
+    box-shadow: 1px 1px 5px #636363;
+    right: -90px;
+    width: 90px;
+    top: 150px;
+    display: none;
+}
+
+.dashStyle.active,
+.thickness.active {
+    display: flex;
+}
+
+.thickI {
+    width: 130px;
+    padding: 5px 0;
+    border-bottom: 2px solid #adadad;
+    cursor: pointer;
+    font-size: 16px;
+    position: relative;
+    text-align: left;
+    padding-left: 5px;
+}
+
+.thickI:hover {
+    background: #adadad;
+}
+
+.thickSp {
+    width: 40px;
+    position: absolute;
+    background: black;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.dashI {
+    width: 90px;
+    height: 40px;
+    border-bottom: 2px solid #adadad;
+    position: relative;
+    cursor: pointer;
+}
+
+.dashI svg {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.dashI:hover {
+    background: #adadad;
+}
+
+
+.dot,
+.dotimg {
+	position: absolute;
+	z-index: 2;
+	width: 15px;
+	height: 15px;
+	background: white;
+	border: 1px solid black;
+}
+
+.dot.activeT,
+.dotimg.activeT {
+	opacity: 1;
+}
+
+.dot.dis,
+.dotimg.dis {
+	display: none;
+}
+
+.dot.reactiveT,
+.dotimg.reactiveT {
+	opacity: 0;
+}
+
+.dotTop {
+	top: -9px;
+	left: 50%;
+	transform: translateX(-50%);
+	cursor: s-resize;
+}
+
+.dotBot {
+	left: 50%;
+	transform: translateX(-50%);
+	bottom: -9px;
+	cursor: s-resize;
+}
+
+.dotLeft {
+	top: 50%;
+	transform: translateY(-50%);
+	left: -9px;
+	cursor: e-resize;
+}
+
+.dotRight {
+	top: 50%;
+	transform: translateY(-50%);
+	right: -9px;
+	cursor: e-resize;
+}
+
+.dotTopLeft {
+	top: -8px;
+	left: -9px;
+	cursor: se-resize;
+
+}
+
+.dotTopRight {
+	top: -8px;
+	right: -9px;
+	cursor: ne-resize;
+}
+
+.dotBotRight {
+	bottom: -8px;
+	right: -9px;
+	cursor: se-resize;
+}
+
+.dotBotLeft {
+	bottom: -8px;
+	left: -9px;
+	cursor: sw-resize;
+}
+
+/* rotate 90 */
+.dotBot90 {
+	top: 50%;
+	transform: translateY(-50%);
+	right: -9px;
+	cursor: s-resize;
+}
+
+.dotRight90 {
+	left: 50%;
+	transform: translateX(-50%);
+	bottom: -9px;
+	cursor: e-resize;
+}
+
+.dotLeft90 {
+	left: 50%;
+	transform: translateX(-50%);
+	top: -9px;
+	cursor: e-resize;
+}
+
+.dotTop90 {
+	left: -9px;
+	top: 50%;
+	transform: translateY(-50%);
+	cursor: s-resize;
+}
+
+.dotBotRight90 {
+	bottom: -8px;
+	right: -9px;
+	cursor: ne-resize;
+}
+
+.dotTopLeft90 {
+	top: -8px;
+	left: -9px;
+	cursor: ne-resize;
+}
+
+.dotBotLeft90 {
+	top: -8px;
+	right: -9px;
+	cursor: se-resize;
+}
+
+.dotTopRight90 {
+	bottom: -8px;
+	left: -9px;
+	cursor: se-resize;
+}
+
+.dotTopRight270 {
+	bottom: -8px;
+	left: -9px;
+	cursor: se-resize;
+	/* background: blue; */
+}
+
+.dotBotLeft270 {
+	top: -8px;
+	right: -9px;
+	cursor: se-resize;
+}
+
+.dotBotRight270 {
+	bottom: -8px;
+	right: -9px;
+	cursor: sw-resize;
+}
+
+.dotTopLeft270 {
+	top: -8px;
+	left: -9px;
+	cursor: sw-resize;
+}
+
+.dotRight270 {
+	left: 50%;
+	transform: translateX(-50%);
+	bottom: -9px;
+	cursor: e-resize;
+}
+
+.dotBot270 {
+	top: 50%;
+	transform: translateY(-50%);
+	right: -9px;
+	cursor: s-resize;
+}
+
+.dotTop270 {
+	top: 50%;
+	transform: translateY(-50%);
+	left: -9px;
+	cursor: s-resize;
+}
+
+.dotLeft270 {
+	top: -9px;
+	left: 50%;
+	transform: translateX(-50%);
+	cursor: e-resize;
+}
+.importLocal {
+	position: absolute;
+	top: 0;
+	left: 0;
+	border: 3px dashed #00000029;
+}
+
+.importLocal.active {
+	border: 3px dashed #557ebe;
+}
+
+.importLocal.clean {
+	border: 3px dashed transparent;
+}
+
+.importLocal.clean .dot,
+.importLocal.clean .dragElem {
+	display: none;
+}
+
+.imgContainer {
+	user-select: none;
+	cursor: all-scroll;
+}
+
+.imgImport {
+	cursor: all-scroll;
+}
+
+@media screen and (max-width: 1320px) {
+    .shapeMode {
+        right: 50px;
+    }
+    .shapeTypeContainer {
+        right: -120px;
+    }
+}

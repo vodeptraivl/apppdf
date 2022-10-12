@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.co.muratec.products.mapper.ProductsMapper">
+	
+	<select id="getRowProducts" resultType="Long">
+		SELECT
+		COUNT(*)
+		FROM
+		  BHN_HINB
+		WHERE #{_productCode, jdbcType=VARCHAR, mode=IN} IS NULL OR HINB LIKE #{_productCode, jdbcType=VARCHAR, mode=IN} || '%'
+	</select>
+	
+	<select id="getProducts" resultType="jp.co.muratec.products.domain.productInfo">
+		SELECT
+		    BHN_HINB.SEQ_NO
+		    , BHN_HINB.HINB
+		    , BHN_HINB.PDFFNAME as pdfFileName
+		    , BHN_HINB.UPDAY
+		    , BHN_HINB.PDFSRV_RAL AS PDFSRV
+		    , BHN_HINB.PDFPAS_RAL AS PDFPAS
+		    , RG08.HINM 
+		FROM
+		    ( 
+		        SELECT
+		            SEQ_NO
+		            , HINB
+		            , PDFFNAME
+		            , UPDAY
+		            , PDFSRV_RAL
+		            , PDFPAS_RAL 
+		        FROM
+		            BHN_HINB 
+		        WHERE
+		            (#{_productCode, jdbcType=VARCHAR, mode=IN} IS NULL OR HINB LIKE #{_productCode, jdbcType=VARCHAR, mode=IN} || '%' )
+		            AND ROWNUM &lt;= 101
+		    ) BHN_HINB 
+		    LEFT JOIN RG08 
+		        ON BHN_HINB.HINB = RG08.PN
+		
+	</select>
+	
+	<select id="getMessage" resultType="jp.co.muratec.products.domain.message">
+		SELECT ERRORCD
+			,MESSAGE
+		FROM ERROR_MESSAGE
+		ORDER BY ERRORCD
+	</select>
+	
+	<insert id="registerLog" >
+		INSERT INTO ACCESS_LOG (SEQNO,PRODNO,PDFFNAME,DYSET,DYUPD,USRSET,USRUPD,PRGUPD)
+		SELECT 
+			ACCESS_LOG_SEQNO.nextval,
+			#{_item.prodno, jdbcType=VARCHAR, mode=IN} AS PRODNO,
+			#{_item.pdffName, jdbcType=VARCHAR, mode=IN} AS PDFFNAME,
+			TO_CHAR(SYSDATE,'YYYYMMDDHH24MISS') AS DYSET,
+			TO_CHAR(SYSDATE,'YYYYMMDDHH24MISS') AS DYUPD,
+			#{_item.usrSet, jdbcType=VARCHAR, mode=IN} AS USRSET,
+		 	#{_item.usrUpd, jdbcType=VARCHAR, mode=IN} AS USRUPD,
+		 	#{_item.prgupd, jdbcType=VARCHAR, mode=IN} AS PRGUPD
+		FROM DUAL
+		
+	</insert>
+</mapper>

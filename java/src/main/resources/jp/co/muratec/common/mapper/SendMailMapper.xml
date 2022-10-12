@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.co.muratec.common.mapper.SendMailMapper">
+
+	<select id="getUserInfo" resultType="jp.co.muratec.common.domain.UserInfoDomain">
+		SELECT CBV_USRINF.USRSEQ, CBV_USRINF.MAIL, CBV_USRINF.USRNM
+		FROM CBV_USRINF
+		WHERE CBV_USRINF.USRID = #{_code,jdbcType=VARCHAR,mode=IN}
+		AND CBV_USRINF.DELFLG = 0
+	</select>
+	
+	<select id="getUsrRoleOfSzi" resultType="jp.co.muratec.common.domain.UserInfoDomain">
+		SELECT A.USRID 
+		FROM CBV_USRINF A 
+		INNER JOIN ( 
+		    SELECT USRSEQ 
+		    FROM TABLE (CAP_AUTH_GET.F_GET_AUTHROLE_USR('CCE_LCSEIGYOKNR_SZI'))) B 
+		ON A.USRSEQ = B.USRSEQ
+	</select>
+	
+	<insert id="registerSendMail">
+		INSERT 
+		INTO MAILSEND(SEQNO, SYSID, MAILHIGH, MAILTO, MAILCC, MAILBCC, SUBJECT
+		, BODY1, BODY2, BODY3, BODY4, BODY5, BODY6, BODY7, BODY8, BODY9, BODY10
+		, SNDFLG, DYSET, DYUPD, USRSET, USRUPD, PRGUPD) 
+		VALUES ( 
+		  #{_item.seqNo,jdbcType=NUMERIC,mode=IN}
+		  , #{_item.sysId,jdbcType=NUMERIC,mode=IN}
+		  , 0
+		  , #{_item.mailTo,jdbcType=VARCHAR,mode=IN}
+		  , #{_item.mailCc,jdbcType=VARCHAR,mode=IN}
+		  , #{_item.mailBcc,jdbcType=VARCHAR,mode=IN}
+		  , #{_item.subject,jdbcType=VARCHAR,mode=IN}
+		  , #{_item.body1,jdbcType=VARCHAR,mode=IN}
+		  , #{_item.body2,jdbcType=VARCHAR,mode=IN}
+		  , #{_item.body3,jdbcType=VARCHAR,mode=IN}
+		  , #{_item.body4,jdbcType=VARCHAR,mode=IN}
+		  , #{_item.body5,jdbcType=VARCHAR,mode=IN}
+		  , #{_item.body6,jdbcType=VARCHAR,mode=IN}
+		  , #{_item.body7,jdbcType=VARCHAR,mode=IN}
+		  , #{_item.body8,jdbcType=VARCHAR,mode=IN}
+		  , #{_item.body9,jdbcType=VARCHAR,mode=IN}
+		  , #{_item.body10,jdbcType=VARCHAR,mode=IN}
+		  , 0
+		  , TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')
+		  , TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')
+		  , #{_item.usrSet,jdbcType=NUMERIC,mode=IN}
+		  , #{_item.usrUpd,jdbcType=VARCHAR,mode=IN}
+		  , #{_item.prgUpd,jdbcType=VARCHAR,mode=IN}
+		)
+	</insert>
+	
+	<select id="getMailSeqNextVal" resultType="Long">
+		SELECT MAILSEQ.NEXTVAL FROM DUAL
+	</select>
+</mapper>

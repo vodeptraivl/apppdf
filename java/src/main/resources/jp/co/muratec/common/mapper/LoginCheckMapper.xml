@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="jp.co.muratec.common.mapper.LoginCheckMapper">    
+
+     <!-- 権限リスト取得 :  【権限カテゴリID】,【ユーザー管理番号】,【サブシステムID】-->
+    <select id="getAuthList" resultType="jp.co.muratec.common.domain.AuthListDomain">
+        <bind name="_category_id" value="@jp.co.muratec.CollaboConst@CATEGORY_ID_CTB" />
+        <!-- <bind name="_userId" value="'userID'" /> -->
+        <bind name="_ssystemId" value="@jp.co.muratec.CollaboConst@SSYSTEM_ID_CTB" />
+    	SELECT
+    	    AUTHID
+    	FROM
+    	    TABLE(
+    	        CAP_AUTH_GET.F_GET_AUTHLIST(#{_category_id,jdbcType=VARCHAR,mode=IN}, #{_userseq,jdbcType=NUMERIC,mode=IN}, #{_ssystemId,jdbcType=VARCHAR,mode=IN})
+    	    )
+   	    ORDER BY AUTHID DESC
+    </select>    
+ 	<!-- 個人言語設定 ： 【ユーザーID】 -->
+    <select id="getCstLang" resultType="jp.co.muratec.common.domain.CstLangDomain">
+       	<!--<bind name="_userId" value="'userID'" />-->
+       	<!--  <bind name="_userId" value="'userID'" />-->
+       	<bind name="_userId" value="@org.springframework.security.core.context.SecurityContextHolder@getContext().getAuthentication().getName()"/>
+       		SELECT F_GET_CST_LANG(#{_userId,jdbcType=VARCHAR,mode=IN}) AS LANGID FROM DUAL
+    </select>   
+    
+    <!-- ユーザーhashからユーザーSEQ取得 AuthenticatedUserDetailsService-->
+    <!-- HASH_TO_USRSEQ : 【ユーザー管理番号】 -->
+    <select id="getAuthUserSeq" resultType="INTEGER">
+    	SELECT CBP_UTIL.HASH_TO_USRSEQ(#{_usrhash,jdbcType=VARCHAR,mode=IN}) AS USRSEQ FROM DUAL
+    </select>
+    
+    <!-- ユーザーSEQからユーザーID取得 -->
+    <!-- USRSEQ_TO_LGINID : 【ユーザー管理番号】 -->
+    <select id="getUserId" resultType="jp.co.muratec.common.domain.UserIdDomain">
+        SELECT CBP_UTIL.USRSEQ_TO_LGINID(#{_userseq, jdbcType=NUMERIC,mode=IN}) AS USERID FROM DUAL
+    </select> 
+    
+    <!-- ユーザーIDからユーザーSEQ取得 -->
+    <select id="getUserId_to_Seq" resultType="INTEGER">
+    	<bind name="_userId" value="@org.springframework.security.core.context.SecurityContextHolder@getContext().getAuthentication().getName()"/>
+        	SELECT CBP_UTIL.LGINID_TO_USRSEQ(#{_userId,jdbcType=VARCHAR,mode=IN}) AS USRSEQ FROM DUAL
+    </select>
+    
+    <!-- 言語変更 -->
+    <!-- F_UPD_CST_LANG : 【ユーザーID】, 【言語情報】, 【ユーザー管理番号】, 【プログラムID】 -->
+    <select id="updateLang" statementType="CALLABLE">
+    	<bind name="_prgupd" value="@jp.co.muratec.CollaboConst@SSYSTEM_ID_CTB" />
+        	CALL F_UPD_CST_LANG(#{_usrid, jdbcType=VARCHAR,mode=IN},#{_val, jdbcType=VARCHAR,mode=IN},#{_usrseq, jdbcType=NUMERIC,mode=IN},#{_prgupd, jdbcType=VARCHAR,mode=IN}) 
+    </select> 
+    
+    <!-- 1-2．HashNoをCBスキーマのユーザーハッシュテーブル（CB.CBT_USRHASH）に問合せ、ユーザー管理番号を取得する。 -->
+    <select id="getUserIdNotExpired" resultType="Long">
+    	SELECT USRSEQ 
+    	FROM CBT_USRHASH 
+    	WHERE USRHASH = #{_hashNo, jdbcType=VARCHAR, mode=IN}
+    		AND EXPIRES > SYSDATE
+    </select>
+    
+    <select id="getUserInfo" resultType="jp.co.muratec.app.userInfo">
+	    SELECT USRID,USRSEQ,USRNM,DPMTCD,DPMTNM,MAIL																															
+		FROM CBV_USRINF 																															
+		WHERE USRSEQ = #{_seq,jdbcType=VARCHAR,mode=IN}																															
+    
+    </select>
+    
+    <select id="loginLPW" resultType="Long">
+   	 SELECT LG.USRSEQ																			
+		FROM (SELECT SEQNO, USRSEQ																			
+					FROM CBM_LGIN																
+					WHERE LOCKFLG = 0																
+					AND LGINID = #{_key,jdbcType=VARCHAR,mode=IN}) LG																
+		INNER JOIN 																			
+		(																			
+			SELECT * 																		
+			FROM CBT_PASSWORD A																		
+			WHERE SEQNO = (Select Max(SEQNO) FROM CBT_PASSWORD B 																		
+							WHERE B.LOGIN_SEQ = A.LOGIN_SEQ														
+							GROUP BY LOGIN_SEQ)														
+			AND UPPER(A.PASS) = UPPER(#{_pass,jdbcType=VARCHAR,mode=IN})																	
+			AND A.EXPIRES>= SYSDATE																		
+																					
+		) PS ON LG.SEQNO = PS.LOGIN_SEQ
+    </select>
+    
+    <select id="checkHashLPW" resultType="String">
+	   	SELECT USRHASH FROM CBT_USRHASH 
+		WHERE 
+	 	USRSEQ = #{_key,jdbcType=NUMERIC,mode=IN}
+		AND EXPIRES >= SYSDATE
+		AND ROWNUM = 1
+    </select>
+    
+    <select id="getUsrSeqFromHash" resultType="Long">
+	   	SELECT USRSEQ FROM CBT_USRHASH 
+		WHERE 
+	 	USRHASH = #{_key,jdbcType=VARCHAR,mode=IN}
+		AND ROWNUM = 1
+    </select>
+    
+    <delete id="delHashWithUserSeq" >
+    	DELETE FROM CBT_USRHASH 
+    	WHERE 
+	 	USRSEQ = #{_key,jdbcType=NUMERIC,mode=IN}
+    </delete>
+    
+    <delete id="delHashWithHash" >
+    	DELETE FROM CBT_USRHASH 
+    	WHERE 
+	 	USRHASH = #{_key,jdbcType=VARCHAR,mode=IN}
+    </delete>
+    
+    <insert id="registerHash">
+    	INSERT INTO CBT_USRHASH (USRSEQ,USRHASH,EXPIRES,VERSION)
+    	VALUES (
+    		#{_seq,jdbcType=NUMERIC,mode=IN},
+    		#{_hash,jdbcType=VARCHAR,mode=IN},
+    		SYSDATE + (1/24*#{_expDate,jdbcType=NUMERIC,mode=IN}),
+    		0
+    	)
+    </insert>
+    
+    <update id="updaterHash">
+    	UPDATE CBT_USRHASH
+    	SET USRHASH = #{_hash,jdbcType=VARCHAR,mode=IN},
+    		EXPIRES = SYSDATE + (1/24*#{_expDate,jdbcType=NUMERIC,mode=IN}),
+    		VERSION = VERSION + 1
+    	WHERE USRSEQ = #{_seq,jdbcType=NUMERIC,mode=IN}
+    </update>
+    
+    
+    <!-- PDF書き込みアプリ_不具合・改善要望一覧 NO 15 -->
+    <select id="checkRole" resultType="Long">
+    	SELECT MSTID.NO
+    	FROM CBM_LGIN LGIN
+    	INNER JOIN MST_ID MSTID ON MSTID.ID = LGIN.LGINID AND LGIN.USRSEQ = #{_key,jdbcType=NUMERIC,mode=IN}
+    	INNER JOIN MST_PORTAL MSTPORTAL ON MSTID.NO = MSTPORTAL.NO
+    	AND MSTID.STATUS &lt;&gt; '00'
+    	AND MSTID.STATUS &lt;&gt; '99'
+    	AND MSTPORTAL.LINK = 'M015'
+    	AND MSTPORTAL.STATUS = '10'
+    	AND MSTPORTAL.PRIVILEGE IN ('01','02','03','05','06','08','10')
+    	WHERE ROWNUM = 1
+    </select>
+</mapper>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="jp.co.muratec.common.mapper.CommonMapper">    
+	<select id="authCheck" resultType="java.lang.Integer">
+    	SELECT  COUNT(*) CNT
+		FROM TABLE(CAP_AUTH_GET.F_GET_AUTHROLE_USR(#{_request.authId, jdbcType=VARCHAR, mode=IN})) R
+		INNER JOIN CBV_USRINF 
+		ON R.USRSEQ = CBV_USRINF.USRSEQ 
+		AND CBV_USRINF.DELFLG = 0 
+		AND USRID = #{_request.userId, jdbcType=VARCHAR, mode=IN}
+    </select>
+    
+    <select id="getNoitice" resultType="jp.co.muratec.common.domain.noiticeDomain">
+    	SELECT	SEQNO,									
+				CONTENTS,									
+				DYSET,									
+				DYUPD									
+		FROM INFORMATION
+		WHERE DISPFLG = 1									
+		ORDER BY DYUPD DESC
+    </select>
+</mapper>

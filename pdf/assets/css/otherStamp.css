@@ -1,0 +1,146 @@
+.bodyOtherStamp{
+    height: calc(100vh - 22px);
+    width: 100%;
+    background: darkgrey;
+}
+.pannelOtherStamp{
+    height: 25px;
+    background: white;
+    width: 100%;
+    position: relative;
+}
+.bodyOtherStamp{
+    position: relative;
+}
+
+.containerCanvasStamp{
+    height: 400px;
+    width: 400px;
+    background: white;position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.con canvas{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+
+.fixWPannel{
+    padding-top: 2px;
+    width: 340px;
+    position: relative;
+    height: 25px;
+    margin-left: 50px;
+}
+.btnOtherStampCtn{
+    display: flex;
+    position: absolute;
+    top: 2px;
+    right: 10px;
+}
+.btnOtherStamp{
+    height: 20px;
+    padding: 0 4px;
+    font-size: 11px;
+    line-height: 20px;
+}
+
+.dot,
+.dotimg {
+	position: absolute;
+	z-index: 2;
+	width: 10px;
+	height: 10px;
+	background: white;
+	border: 1px solid black;
+}
+
+.dot.activeT,
+.dotimg.activeT {
+	opacity: 1;
+}
+
+.dot.dis,
+.dotimg.dis {
+	display: none;
+}
+
+.dot.reactiveT,
+.dotimg.reactiveT {
+	opacity: 0;
+}
+
+.dotTop {
+	top: -6px;
+	left: 50%;
+	transform: translateX(-50%);
+	cursor: s-resize;
+}
+
+.dotBot {
+	left: 50%;
+	transform: translateX(-50%);
+	bottom: -6px;
+	cursor: s-resize;
+}
+
+.dotLeft {
+	top: 50%;
+	transform: translateY(-50%);
+	left: -6px;
+	cursor: e-resize;
+}
+
+.dotRight {
+	top: 50%;
+	transform: translateY(-50%);
+	right: -6px;
+	cursor: e-resize;
+}
+
+.dotTopLeft {
+	top: -6px;
+	left: -6px;
+	cursor: se-resize;
+
+}
+
+.dotTopRight {
+	top: -6px;
+	right: -6px;
+	cursor: ne-resize;
+}
+
+.dotBotRight {
+	bottom: -6px;
+	right: -6px;
+	cursor: se-resize;
+}
+
+.dotBotLeft {
+	bottom: -6px;
+	left: -6px;
+	cursor: sw-resize;
+}
+.importLocal {
+	position: absolute;
+	top: 0;
+	left: 0;
+	border: 1px dashed #00000029;
+}
+
+.importLocal.active {
+	border: 1px dashed #557ebe;
+}
+
+.importLocal.clean {
+	border: 1px dashed transparent;
+}
+
+.importLocal.clean .dot,
+.importLocal.clean .dragElem {
+	display: none;
+}

@@ -1,0 +1,14 @@
+{
+  "pathProd": "../../config/config.json",
+  "pathDev": "/config/config.json",
+  "title": "PDF書き込みアプリ",
+  "mode": "dev",
+  "apiProd": "http://lc-wla8.muratec.co.jp/LPW",
+  "apiProdDev": "http://lc-wla8-t.muratec.co.jp/LPW",
+  "apiProd1": "http://murata.mrt.imlink.vn:9898/LPW",
+  "apiDev": "http://murata.mrt.imlink.vn:9898/LPW",
+  "apiDevProd": "http://murata.mrt.imlink.vn:9898/LPW",
+  "dirRelease": "",
+  "pathBE": "../LPW_BACKEND",
+  "pathFE": "./"
+}

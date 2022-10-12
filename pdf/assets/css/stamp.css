@@ -1,0 +1,323 @@
+.stampSign {
+    position: absolute;
+    top: 0;
+    right: 20px;
+    width: 20px;
+    cursor: pointer;
+}
+
+.stampProdCon {
+    width: 242px;
+    position: absolute;
+    top: 26px;
+    border: outset;
+    overflow-y: auto;
+    z-index: 3;
+    background-color: white;
+    box-shadow: 1px 1px 5px #00000096;
+    display: none;
+    padding: 10px;
+    right: 0px;
+    overflow: hidden;
+}
+
+.stampScrollDiv {
+    width: 225px;
+    max-height: 145px;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+.stampProdCon.active {
+    display: block;
+}
+
+.stampProdCon.active .stampScrollDiv {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.stampSignI {
+    width: 68px;
+    height: 68px;
+    box-shadow: 1px 1px 5px #cecece;
+    margin: 2px;
+    position: relative;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.stampSignI:hover {
+    box-shadow: 1px 1px 5px rgba(157, 195, 230, 1);
+}
+
+.stampSignI img {
+    width: 58px;
+    height: 58px;
+}
+
+/* width */
+.stampScrollDiv::-webkit-scrollbar {
+    width: 4px;
+}
+
+/* Track */
+.stampScrollDiv::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Handle */
+.stampScrollDiv::-webkit-scrollbar-thumb {
+    background: #cecece;
+}
+
+/* Handle on hover */
+.stampScrollDiv::-webkit-scrollbar-thumb:hover {
+    background: #cecece;
+}
+
+.registMaskContainer,
+.stampContainer {
+    position: absolute;
+    top: calc(50% + 30px);
+    left: 50%;
+    width: 500px;
+    z-index: 6;
+    background: white;
+    text-align: center;
+    transition: .1s ease-in;
+    box-shadow: 1px 1px 5px black;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+}
+
+.registMaskContainer.closePopup,
+.stampContainer.closePopup {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.contentRegistMask {
+    padding: 20px 10px;
+    display: flex;
+}
+
+.registMaskOverlay {
+    position: absolute;
+    float: left;
+    top: 30px;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 30px);
+    background: #2125293b;
+    overflow: hidden;
+    z-index: 6;
+    display: none;
+}
+
+.registMaskOverlay.closePopup {
+    display: block;
+}
+
+.optionMaskContainer {
+    width: calc(100% - 200px);
+}
+
+.maskReviewContainer {
+    width: 200px;
+    padding: 10px;
+    height: 200px;
+    border: 1px solid #9e9e9e;
+    box-shadow: inset 0 1px 5px #9e9e9e;
+}
+
+.circleMask {
+    height: 100%;
+    width: 100%;
+    border: 2px solid red;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.name1,
+.name2 {
+    height: 35%;
+    position: relative;
+}
+
+.dateMiddle {
+    height: 30%;
+    border-top: 2px solid red;
+    border-bottom: 2px solid red;
+    position: relative;
+}
+
+.textInside {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 25px;
+    color: red;
+    font-weight: 500;
+}
+
+.rowDate {
+    display: flex;
+    padding: 5px 0;
+    width: calc(100% - 10px);
+    padding: 20px 10px;
+    border: 1px solid #bbbbbb;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.rowDate input {
+    height: 20px;
+    font-size: 12px;
+    border: 1px solid #888888;
+    border-radius: 4px;
+    margin-right: 5px;
+    margin-left: 5px;
+    padding: 0 2px;
+    text-align: right;
+}
+
+.rowDate span {
+    line-height: 20px;
+    font-size: 12px;
+}
+
+.kyodate {
+    width: 40px;
+    height: 20px;
+    font-size: 12px;
+    padding: 0;
+    margin-left: 15px;
+}
+
+.btn-save {
+    width: 40px;
+    height: 20px;
+    font-size: 12px;
+    padding: 0;
+}
+
+.labelRowDate {
+    position: absolute;
+    top: -10px;
+    width: 50px;
+    background: white;
+}
+
+/* Chrome, Safari, Edge, Opera */
+.rowDate input::-webkit-outer-spin-button,
+.rowDate input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.contentStamp {
+    padding: 20px 10px;
+}
+
+.stamps {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.iconStamp {
+    position: relative;
+    padding: 5px;
+    margin-right: 5px;
+    width: 90px;
+    height: 90px;
+    overflow: hidden;
+    box-shadow: 0px 0px 3px #6d6d6d96;
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+
+.iconStamp:hover {
+    box-shadow: 0px 0px 5px #557ebe
+}
+.iconStamp.active {
+    box-shadow: 0px 0px 5px #557ebe
+}
+
+.iconStamp:last-child {
+    margin-right: 0;
+}
+
+.iconStamp img {
+    width: 80px;
+}
+
+.actionStamp {
+    display: flex;
+    margin-top: 10px;
+}
+
+.actionStamp span {
+    line-height: 25px;
+}
+
+.actionStampB {
+    margin-top: 10px;
+    padding: 10px 0;
+    border-top: 1px solid #d4d4d4;
+}
+
+.editStamp {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+}
+
+.stampBtn{
+    font-size: 12px;
+    height: 20px;
+    padding: 0 5px;
+    margin-bottom: 10px;
+}
+
+.btnMapControll.disabled{
+    background-color: #a5a5a5;
+    cursor: not-allowed;
+}
+
+#stampCenterImg{
+    margin-top: 10px;
+    max-height: 285px;
+    overflow: hidden;
+    padding: 10px 0px 10px 5px;
+    overflow-y: scroll;
+    width: calc(100% + 6px);
+}
+
+/* width */
+#stampCenterImg::-webkit-scrollbar {
+    width: 6px;
+}
+
+/* Track */
+#stampCenterImg::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Handle */
+#stampCenterImg::-webkit-scrollbar-thumb {
+    background: #cecece;
+}
+
+/* Handle on hover */
+#stampCenterImg::-webkit-scrollbar-thumb:hover {
+    background: #cecece;
+}
+
+
+@media screen and (max-width: 1320px) {
+    .stampSign {
+        right: 20px;
+    }
+}

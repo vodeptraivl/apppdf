@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=11">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"/>
+	<style>
+		body{
+			width: 100%;
+			height: 100vh;
+			background: linear-gradient(to bottom, rgba(217,217,217,1) 0%, rgb(255, 255, 255)50%, rgba(217,217,217,1) 100%);
+		}
+		.contanerMuratec{
+			position: absolute;
+			top:50%;
+			left: 50%;
+			transform: translate(-50% , -50%);
+			width: 450px;
+			padding: 10px;
+			background: #587bbc
+		}
+		.width80{
+			display: flex;
+			margin: 15px auto;
+			width: 80%;
+		}
+		.left{
+			width: 25%;
+			color: white;
+			font-weight: 200;
+			line-height: 34px;
+			margin-bottom: 0;
+		}
+		.right{
+			width: 65%;
+		}
+	</style>
+</head>
+<body>
+
+<!--
+# 独自のログイン画面を作成する場合のサンプル画面です。
+# バックエンド側にユーザIDとパスワードを渡し、認証が通った場合は認証情報をCookieに設定し
+# システムのルートパスへ遷移させます。
+-->
+<div class="contanerMuratec">
+	<img src="data:image/png;base64,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" style="width:150px;padding: 10px;">
+    <form action="/v1/api/login" id="form01" style="text-align: center;">
+        <h3 style="color: white;margin-bottom: 70px;font-size: 20px;">技術情報の回収／削除システム</h3>
+		<div class="form-group width80" >
+			<label for="userid-input" class="control-label left">ログインID</label>
+			<div class="right">
+				<input value="" class="form-control" type="text" id="userid" placeholder="ログインID">
+			</div>
+		</div>
+		<div class="form-group width80" >
+			<label for="password-input" class="control-label left">パスワード</label>
+			<div class="right">
+				<input value="" class="form-control" type="password" id="password" placeholder="パスワード">
+			</div>
+		</div>
+		<div class="form-group width80" >
+			<h5 id="lable-message-error" style="font-size:11px;width: 100%;color: white;"></h5>
+		</div>
+		<div class="form-group" style="margin-bottom: 70px;">
+			<div></div>
+			<div>
+				<button value="login" class="form-control btn btn-default" id="login" type="submit" 
+				style="width: 150px;
+				background: #254061;
+				color: white;
+				outline: none;
+				border: none;border-radius: 7px;">ログイン</button>
+			</div>
+		</div>
+		
+    </form>
+</div>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
+	<!--　ログイン処理はポストバックで、返却された認証情報を設定するようにしてください。 -->
+	$( "#form01" ).submit(function( event ) { 
+		event.preventDefault();
+ 		var $form = $( this );
+    	url = $form.attr( "action" );
+ 
+		var posting = $.post( url,{
+			'userid': document.getElementById("userid").value,
+			'uh2': document.getElementById("userid").value,
+			'password':document.getElementById("password").value
+		});
+
+		posting.done(function( data ) {
+			// 認証エラーのパターンは省略
+			document.cookie = "userid=" + data.auth.userId +";path=/";
+			document.cookie = "uh2=" + data.auth.hashValue + ";path=/";
+    		location.href = "/";
+ 		 });
+	});
+</script>
+</body>
+</html>
