@@ -1,34 +1,7 @@
-
-
-// document.onclick = hideMenu; 
-// document.oncontextmenu = rightClick; 
-
-// function hideMenu(e) { 
-//     document.getElementById("contextMenu") .style.display = "none" 
-// } 
-
-// function rightClick(e) { 
-//     e.preventDefault(); 
-//     hideMenu(); 
-//     if(["itemTab",'sub-tab'].indexOf(e.target.className) > -1){
-//         var menu = document.getElementById("contextMenu")    
-//         let idtab = e.target.getAttribute('idtab') ;
-//         allTabs.map((x)=>{
-//             if(x.idtab == idtab && !x.itemLoadPdf.isMergeFile){
-//                 menu.style.display = 'block'; 
-//                 menu.style.left = e.pageX + "px"; 
-//                 menu.style.top = e.pageY + "px"; 
-//                 currentFileMerge = x
-//             }
-//         });
-//     }
-// } 
-
 function loadingExtract(){
     if($('#tab-btn-01').hasClass('active')){
         $('#tab-btn-01').click();
     }
-    
     if(itemLoadPdf){
         openMergePdf(itemLoadPdf);
         $('.btnMapControll').removeAttr('disabled');
@@ -46,22 +19,14 @@ function loadingExtract(){
 
 function openMergePdf(pdfJson = null){
     isMiniMapOpen = true;
-    // let param = {
-    //     top : $('.containter-tabs')[0].clientHeight + $('#tool-bar-top-bottom')[0].clientHeight + $('.headerPWA')[0].clientHeight,
-    //     height : $('.container-pdf')[0].clientHeight,
-    //     item : currentFileMerge
-    // }
     $('#overlayHidenMain').css('display','block');
     $('#mergePDFcontainer').addClass('active');
     setPaint(false,false);
     setFont(false);
     renderImg(pdfJson || itemLoadPdf);
-    // ipcRenderer.send('openMergePdf', param); 
-
 }
 // END SCRIPT process loadfile pdf
 // ****************************************************************************************************************************************************************
-
 ipcRenderer.on('appendFile',(event,params)=>{
     loadFileAppend(params);
 });
@@ -82,10 +47,8 @@ function loadFileAppend(params){
     data = "data:application/pdf;base64," + data;
     let idtab = itemLoadPdf.idtab;
     let fileIndex = itemLoadPdf.seqNo;
-    // console.log(itemLoadPdf,allTabs);
     let newSignaPads = [];
     pageNew = [];
-    // common.mkDirByPathSync(savePath);
     newImage = [];+
     pdfjs.getDocument(data).then((pdf_doc) => {
         let sizePage = pdf_doc.numPages;
@@ -146,7 +109,6 @@ function loadFileAppend(params){
 				);
                 fkpaint.setCanPaint(false);
 				newSignaPads.push(fkpaint);
-                
                 pageNew.push({
 					index:indexPre,
 					position:[],
@@ -160,8 +122,6 @@ function loadFileAppend(params){
 					pageNumber:i-1,
                     isJoinPage : true
 				});
-                 
-				// page.render(renderContext);
 				let renderImg = page.render(renderContext);
                 let idImg = common.UUID();
                 let nameImg = idImg+'.png';
@@ -205,7 +165,6 @@ function appendCanvas(fileIndex, pageIndex,hoz,idtab,params){
 		cvd = document.createElement("canvas"), 
 		cv = document.createElement("canvas");
 		divText = document.createElement("div");
-
     divMain.appendChild(pdf); 
 	divMain.appendChild(cv); 
 	divMain.appendChild(cvd); 
@@ -285,10 +244,8 @@ function mergControllPanel(params,idtab,indexAppend,pageNew,newSignaPads,newImag
 
         zoomContent().subscribe(_=>{renderDropPdfMap(newImage,dropElement);});
         common.showHideLoader(false);
-    },000)
-    
+    },000)   
 }
-
 
 function FKPrepareRemovePage(listIndex){
     setTimeout(_=>{
@@ -320,7 +277,6 @@ function FKPrepareRemovePage(listIndex){
             }
         }
     },000)
-    
 }
 
 function updateClassJoin(){

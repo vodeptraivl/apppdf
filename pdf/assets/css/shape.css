@@ -510,6 +510,10 @@
 	cursor: all-scroll;
 }
 
+.FKforeign{
+    overflow: unset;
+}
+
 @media screen and (max-width: 1320px) {
     .shapeMode {
         right: 50px;

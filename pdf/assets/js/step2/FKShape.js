@@ -128,7 +128,7 @@ function shapeChose(type) {
 }
 
 function turnDraw(mode) {
-    $('.svg-container').removeClass('zindx3').addClass('zindx1');
+    $('.svg-container').removeClass('zindx1 zindx3').addClass((mode) ? 'zindx1' :'zindx3');
     if (allTabs != null && allTabs.length > 0) {
         for (let i = 0; i < allTabs.length; i++) {
             if (allTabs[i].signaPads && allTabs[i].signaPads.length > 0) {
@@ -1893,6 +1893,7 @@ class FKMoveShape {
                                 font-size:${this.font.size * (this.options.modeShape == "main" ? 2 : 1)}px;
                                 color:${this.font.color};
                                 font-family :'${this.font.fontFamify}';
+                                padding: 5px;
                                 ${this.getRotTransTextArea(rotate,this.pos.w,this.pos.h)}" 
                                 idta="${this.idTarget}" fktextarea ></textarea>
                         </div>

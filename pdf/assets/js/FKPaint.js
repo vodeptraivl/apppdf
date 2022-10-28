@@ -91,9 +91,11 @@
             this._handleMousewheel = function (event) {
                 if (event.ctrlKey == true && event.x != null && event.y != null) {
                     event.preventDefault();
+                    event.stopPropagation();
                     if (_this.callbackMouseZoom != null) {
                         let align = _this.canvas.parentElement.getAttribute('align');
                         _this.callbackMouseZoom({ zoomDelta: event.deltaY, point: { x: event.x, y: event.y }, endTouch: false, page: align });
+                    
                     }
                 }
             }
@@ -101,6 +103,7 @@
             // ~ FKVL
             this._handleMouseDown = function (event) {
                 event.preventDefault();
+                
                 if (event.which === 1 && _this.canPaint == true) {
                     _this.lz = _this._data.length;
                     _this._mouseButtonDown = true;
@@ -137,10 +140,12 @@
                 else if ((event.which === 1 || event.which === 2) && _this.callBackScrollBar != null) {
                     _this._scrollbarAction = true;
                     _this.callBackScrollBar({ x: event.clientX, y: event.clientY, scroll: true, which: event.which });
+                   
                 }
                 if (event.which === 2 && _this.callBackScrollBar != null) {
                     _this._scrollbarAction = true;
                     _this.callBackScrollBar({ x: event.clientX, y: event.clientY, scroll: true, which: event.which });
+
                 }
             };
 
@@ -191,7 +196,7 @@
                     _this.callBackShape({event, pageNumber : _this.pageNumber, type : 'mouseUp', idSVG : _this.idSvg})
                 }
                 _this._scrollbarAction = false;
-                if(_this.callBackScrollBar) _this.callBackScrollBar({ scroll: false });
+                if(_this.callBackScrollBar && event.which == 2) _this.callBackScrollBar({ scroll: false , mouseUp : true});
             };
 
             this._handleTouchStart = function (event) {

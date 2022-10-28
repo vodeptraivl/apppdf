@@ -73,7 +73,6 @@ function zoomFileCallBack(zoomData){
 // ****************************************************************************************************************************************************************
 //process for zoom file with mouse
 function zoomFileMouseCallBack(zoomData){
-	
 	if(!zoomData.endTouch){
 		currentZoom = parseFloat((currentZoom).toFixed(2));
 		if(zoomData.zoomDelta && zoomData.zoomDelta > 0){

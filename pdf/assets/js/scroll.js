@@ -64,6 +64,7 @@ function initScrollForExportDivMain(id){
 // ****************************************************************************************************************************************************************
 //process drag or scroll page PDF
 function scrollFileCallBack(dataScroll){
+	if(dataScroll.scroll == false) {; setTimeout(x=>{positionScroll = null},50)}
 	if(dataScroll.scroll){
 		clearSelect(true);
 		removeShapeSltor();
@@ -103,7 +104,6 @@ function scrollFile(dataScroll){
 	let scrollT = $("#export-div"+tabCurrent).scrollTop();
 	let scrollX = positionScroll.x - dataScroll.x;
 	let scrollY = positionScroll.y - dataScroll.y;
-
 	if((scrollL > 0 && scrollX < 0) || scrollX > 0){
 		$("#export-div"+tabCurrent).scrollLeft(scrollL + scrollX);
 	}
