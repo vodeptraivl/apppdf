@@ -55,7 +55,7 @@ body {
     padding-bottom: 10px;
     top: 0;
     z-index: 10;
-    transition: .2s;
+    transition: .1s;
     overflow: hidden;
     position: relative;
     /* transform: translateX(-100%); */
@@ -123,7 +123,7 @@ body {
 
 .mapPdf2 {
     display: none;
-    transition: .2s;
+    transition: .1s;
 }
 
 .mapPdf2.active,
@@ -136,7 +136,7 @@ body {
 .saveMap,
 .clearAllMap {
     display: none;
-    transition: .3s;
+    transition: .1s;
 }
 
 .selectAllMap.active,
@@ -210,9 +210,9 @@ body {
     outline: none;
 }
 
-.btnMapControll:hover {
+/* .btnMapControll:hover {
     opacity: 0.9;
-}
+} */
 
 .rotateMap,
 .pdfMergeMap,
@@ -317,7 +317,7 @@ body {
     box-shadow: 1px 1px 5px #5d5d5d;
     transform: translate(-50%, -50%);
     ;
-    transition: .5s;
+    transition: .1s;
     overflow: hidden;
     z-index: 11;
 }
@@ -423,13 +423,16 @@ body {
     z-index: 7;
     position: fixed;
     top: 110px;
-    width: 310px;
+    /* width: 310px; */
     height: calc(100% - 110px);
     /* display: none; */
     box-shadow: 1px 8px 5px #404040;
     transform: translateX(-110%);
-    transition: 0.2s;
+    transition: .5s ease
     /* display: none; */
+}
+.mapPdf1{
+    transition: .5s ease
 }
 
 #mergePDFcontainer.active {
@@ -478,4 +481,35 @@ body {
 
 .miniMapContainer.heightSmall {
     height: calc(100% - 55px);
+}
+
+.mapPdf1.exW{
+    width: 1110px;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+}
+.mapPdf1 .pageMap:not(:last-child).exW{
+    height: 260px !important;
+    width: 260px !important;
+    margin: 5px;
+}
+.mapPdf1 .pageMap:last-child.exW{
+    height: 260px !important;
+    margin: 5px;
+    flex: 1;
+}
+/* 
+.mapPdf1 .pageMap:last-child.exW.over .lineFocus {
+    width: 100% !important;
+    height: 100% !important;
+    border: 1px solid black !important;
+    border-style: dashed !important;
+    border-radius: 0 !important;
+} */
+
+.extw.exW{
+    background: green !important;
+    box-shadow: 0px 0px 5px #599059;
+    display: none;
 }

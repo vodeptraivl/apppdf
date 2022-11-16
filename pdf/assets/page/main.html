@@ -537,6 +537,8 @@
 						<button class="btnMapControll saveMap" onclick="onSavePdfPage()">登録</button>
 						<button class="btnMapControll saveMap" onclick="cancelExtractPDF()"
 							style="width:80px">キャンセル</button>
+
+						
 					</div>
 					<div id="mainBtnMap" class="mainBtnMap active">
 						<button class="btnMapControll actMap" onclick="selectAllMapp('mapPdf1')"
@@ -553,7 +555,14 @@
 							style="width: 70px;">選択クリア</button>
 						<button class="btnMapControll" onclick="openFKRotateMerge()" style="width:80px">キャンセル</button>
 					</div>
-					<i class="fa fa-times closeMiniMap" aria-hidden="true" onclick="closeCombine()"></i>
+					<button class="btnMapControll extw" onclick="extendWidth()" style="
+						position: absolute;
+						right: 10px;
+						top: 11px;
+						width: 52px;
+						font-size: 10px;
+					">一覧表示</button>
+					<i class="fa fa-times closeMiniMap" aria-hidden="true" onclick="extendWidth()"></i>
 				</div>
 				<div class="miniMapContainer heightSmall">
 					<div class="mapPdf1" sortable-list="sortable-list" style="position: relative;"></div>
@@ -678,9 +687,9 @@
 						<!-- <text id="departmentFull" x="50" y="22.5" dominant-baseline="middle" text-anchor="middle"
 							fill="red" font-family="ＭＳ Ｐゴシック" style="font-size: 12px;"></text> -->
 						<foreignObject id="departmentFull" x="10" y="10" width="80" height="25" style="overflow: hidden;border-radius: 100px 100px 0 0;">
-							<p style="
-									font-size: 10px;
-									width: 70%;
+							<p id="departmentFullP" style="
+									font-size: 17px;
+									width: 60%;
 									text-align: center;
 									margin: 0;
 									white-space: normal;
@@ -698,9 +707,9 @@
 						<!-- <text id="nameFull" x="50" y="80" dominant-baseline="middle" text-anchor="middle"
 							fill="red" font-family="ＭＳ Ｐゴシック"  style="font-size: 12px;"></text> -->
 						<foreignObject id="nameFull" x="10" y="22" width="80" height="25" style="overflow: hidden;border-radius: 0 0 100px 100px">
-							<p style="
-									font-size: 10px;
-									width: 70%;
+							<p id="nameFullp" style="
+									font-size: 17px;
+									width: 60%;
 									text-align: center;
 									margin: 0;
 									white-space: normal;

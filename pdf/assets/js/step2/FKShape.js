@@ -24,17 +24,12 @@ $('body')
         if(!$(`#${idtarget}`).hasClass('selectShape')){
             appendFKtoolShape(idtarget,e.target.getAttribute('idsvg'));
         }
-        // e.stopPropagation();
-       
     }else{
         let idtarget = e.target.getAttribute('id');
         if(!$(`#${idtarget}`).hasClass('selectShape')){
             appendFKtoolShape(idtarget,e.target.parentElement.getAttribute('id'));
         }
-        
     }
-    
-        
 })
 .off('focus blur','.FKtextArea')
 .on('focus','.FKtextArea',()=>{
@@ -45,8 +40,34 @@ $('body')
     callBackShape({type: 'textarea',onOff:false});
     e.target.parentElement.querySelector('.FKtextAreaF').innerText = e.target.value;
     if(modeShape == 'main') offScroll(false);
-});
+}).on('mousedown', '.svg-container', (e) => {
+    if(e.which == 2){
+        e.preventDefault();
+    }
+    if(e.target.classList.value.indexOf("svg-container") > -1 || e.which == 2){
+        let idtab = e.currentTarget.getAttribute('idtab');
+        let idsvg = e.currentTarget.getAttribute('id').replace('SVG','');
+        turnScroll(idtab,idsvg, e);
+    }
 
+})
+
+function turnScroll(idtab,idSvg, e) {
+    if (allTabs != null && allTabs.length > 0) {
+        for (let i = 0; i < allTabs.length; i++) {
+            if (allTabs[i].idtab == idtab) {
+                for(let j = 0 ;j < allTabs[i].signaPads.length;j++){
+                    if(allTabs[i].signaPads[j].idSvg == idSvg){
+                        allTabs[i].signaPads[j].setScroll(true);
+                        $('.svg-container').removeClass('zindx1 zindx2 zindx3').addClass('zindx1');
+                        scrollFileCallBack({ x: e.clientX, y: e.clientY, scroll: true, which: e.which });
+                        return;
+                    }
+                }
+            }
+        }
+    }
+}
 
 function drawShape(params) {
     let divMain = `.divMain-${itemLoadPdf.seqNo}-page-${params.pageNumber}-${tabCurrent}`;
@@ -88,9 +109,7 @@ function drawShape(params) {
                         return;
                     }
                     break
-                
             }
-            
             historyMain.push({
                 type: 'shape',
                 element: item.cloneNode(true),
@@ -148,7 +167,7 @@ function appendSvg(params, divMain) {
     let maker = getShapeEleMK(idMaker);
     if ($(`#SVG${params.idSVG}`) == null || $(`#SVG${params.idSVG}`).length == 0) {
         let svg = `
-            <svg id="SVG${params.idSVG}" class="svg-container zindx1" idtab="${tabCurrent}" FKSVG>
+            <svg id="SVG${params.idSVG}" class="svg-container curDrag zindx1" idtab="${tabCurrent}" FKSVG>
                 <defs id="defs-${params.idSVG}" class="defsContainer">${maker}</defs>
                 ${shapeEle}
             </svg>`;
@@ -425,6 +444,7 @@ function callBackShape(e) {
             removeShapeSltor();
             $('.stampProdCon').removeClass('active');
             clearSelect(true);
+
             break;
         case 'scroll':
             if(itemLoadPdf) zoomFileCallBack(e);
@@ -872,7 +892,6 @@ function pastShape(){
 //********************************************************************************************************************************************************************************************************************************************************************************************************************************
 //handle shape ( drag, resize, text)
 //Author : FKVL
-
 class FKMoveShape {
     constructor(svg, options, callBackDrag = null) {
         this.svg = typeof svg === 'string' ?
@@ -1099,7 +1118,7 @@ class FKMoveShape {
         if (['text', 'transparent', 'fill', 'stroke','stroke-dasharray','stroke-width'].indexOf(this.handle) > -1) {
             return;
         }
-
+        e.stopPropagation();
         this.touch = e.type == 'touchstart';
         let point = this.getDragXY(e);
         this.startPoint = point;
@@ -1197,7 +1216,6 @@ class FKMoveShape {
                 type: 'start'
             })
         }
-
     }
 
     dragMove(e) {
@@ -1752,6 +1770,12 @@ class FKMoveShape {
                 </div>
                 <div class="FkTool" tool="transparent">
                     <img src="../img/shape/transparent.png">
+                </div>
+                <div class="FkTool" tool="stroke-width">
+                    <img src="../img/shape/thickness.png">
+                </div>
+                <div class="FkTool" tool="stroke-dasharray">
+                    <img src="../img/shape/borderStyle.png">
                 </div>
                 ` : `
                     <div class="FkTool" tool="stroke-width">

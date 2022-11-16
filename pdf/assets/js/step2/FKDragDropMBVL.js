@@ -79,7 +79,6 @@ class FKDragDropMBVL {
       this.items.forEach(item => {
         if (this.item == item) return;
         item.style.transition = `transform ${this.options.animationSpeed}ms ${this.options.animationEasing}`;
-        // item.style.animation = `opacityMove ${this.options.animationSpeed}ms ${this.options.animationEasing}`
       });
     });
 
@@ -87,8 +86,6 @@ class FKDragDropMBVL {
     this.itemClone = this.item.cloneNode(true);
     this.list.style.position = 'relative';
     this.parentElement.style.position = 'relative';
-    // this.list.style.height = `${this.list.offsetHeight}px`;
-    // this.item.classList.add('is-dragging');
     this.startTouchY = this.getDragY(e);
     this.startTouchX = this.getDragX(e);
     this.startTop = this.item.offsetTop;
@@ -104,7 +101,6 @@ class FKDragDropMBVL {
     this.touch = e.type == 'touchstart';
     window.addEventListener(this.touch ? 'touchmove' : 'mousemove', this.dragMove, { passive: false });
     window.addEventListener(this.touch ? 'touchend' : 'mouseup', this.dragEnd, false);
-
   }
 
   dragMove(e) {

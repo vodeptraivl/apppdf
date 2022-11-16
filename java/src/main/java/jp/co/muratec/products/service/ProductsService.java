@@ -46,6 +46,8 @@ import jp.co.muratec.products.domain.positionDomain;
 import jp.co.muratec.products.domain.productInfo;
 import jp.co.muratec.products.domain.savePdfDomain;
 import jp.co.muratec.products.mapper.ProductsMapper;
+
+import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.pdmodel.PDDocument; 
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -258,7 +260,10 @@ public class ProductsService {
 					if(docFile != null && docFile.size() == 1) {
 						PDPage pageMerge = docFile.get(0).getFile().getPage(page.getPageNumber());
 						pageMerge.setRotation((pageMerge.getRotation()+page.getRotate()));
-						mergeDoc.addPage(pageMerge);
+						COSDictionary pageDict = pageMerge.getCOSObject();
+						COSDictionary newPageDict = new COSDictionary(pageDict);
+						PDPage pageMerge2 = new PDPage(newPageDict);
+						mergeDoc.addPage(pageMerge2);
 					}
 				}
 				
@@ -451,7 +456,6 @@ public class ProductsService {
 	}
 
 	private void drawContent(List<positionDomain> position,pageDomain page,PDDocument document,PDPage pageOfIndex,Matrix matrix,String path,float w,float h,Integer rol) throws Exception {
-		
 		if(position != null && position.size() > 0) {
 			for(positionDomain pos : position) {
 				PDPageContentStream contentStream = null;
@@ -526,7 +530,10 @@ public class ProductsService {
 	                        .filter(x -> x.getFileName().equals(page.getFileName())).collect(Collectors.toList());
 					if(docFile != null && docFile.size() == 1) {
 						PDPage pageMerge = docFile.get(0).getFile().getPage(page.getPageNumber());
-						mergeDoc.addPage(pageMerge);
+						COSDictionary pageDict = pageMerge.getCOSObject();
+						COSDictionary newPageDict = new COSDictionary(pageDict);
+						PDPage pageMerge2 = new PDPage(newPageDict);
+						mergeDoc.addPage(pageMerge2);
 					}
 				}
 				

@@ -1,5 +1,3 @@
-window.addEventListener('touchmove', () => {});
-
 class FBSortableMBVL {
   constructor(list, options) {
     this.list = typeof list === 'string' ?

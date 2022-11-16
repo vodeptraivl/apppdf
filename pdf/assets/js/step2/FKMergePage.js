@@ -6,7 +6,7 @@ let tabChose = null;
 let dropElement = null;
 let extractOpen = false;
 let callBackFunction = null;
-
+let isExW = false;
 function closeCombine() {
     isMiniMapOpen = false;
     [].forEach.call(document.querySelectorAll('.columnMerge'), removeDropHandle);
@@ -17,9 +17,17 @@ function closeCombine() {
     $('#overlayHidenMain').css('display', 'none');
     if (isJoin) { closeFKJoinFile() }
     if (isRotate) { openFKRotateMerge() }
+    $('#mergePDFcontainer,.mapPdf1,.pageMap,.extw').removeClass('exW exWe');
+    $('#mergePDFcontainer').css('width','')
+    isExW = false;
 };
 
-
+function extendWidth(){
+    // $('#mergePDFcontainer').css('width',(extractOpen == false) ? '' : '610px')
+    // $('#mergePDFcontainer').toggleClass((extractOpen) ? 'exWe' : 'exW');
+    $('.mapPdf1,.pageMap,.extw').toggleClass('exW');
+    isExW = $('.extw').hasClass('exW');
+}
 
 function reRenderMap() {
     let data = fs.readFileSync(pathSave).toString('base64');
@@ -127,7 +135,7 @@ function renderDropPdfMap(dataImage, $this, html = null) {
             for (let i = 0; i < dataImage.length; i++) {
                 let x = { ...dataImage[i] };
                 htmlCreate += `
-                    <div class="pageMap columnMerge" 
+                    <div class="pageMap columnMerge ${isExW ? 'exW' : ''}" 
                         sortable-item="sortable-item" 
                         sortable-handle="sortable-handle" 
                         shadow-child-width="${x.width}"
@@ -343,10 +351,12 @@ function onCancelTXMapp() {
 
 function selectAllMapp(map) {
     $(`.${map} .imagePage1`).removeClass('active').addClass('active');
+    checkAllMap1 = true;
 }
 
 function clearAllMapp(map) {
     $(`.${map} .imagePage1`).removeClass('active');
+    checkAllMap1 = false;
     if (map == 'mapPdf1') {
         document.getElementById(`${itemLoadPdf.idtab}-file-${itemLoadPdf.seqNo}-page-0`).scrollIntoView({ behavior: 'auto', block: "start" });
     }
@@ -423,7 +433,11 @@ function extractPdfOpen() {
     extractOpen = true;
     if (isJoin) { closeFKJoinFile() }
     if (isRotate) { openFKRotateMerge() }
-    $('#mergePDFcontainer').css('width', '610px')
+    // if(isExW){
+    //     $('#mergePDFcontainer').removeClass('exW').addClass('exWe');
+    // }else{
+    //     $('#mergePDFcontainer').css('width', '610px')
+    // }
     $('.mapPdf2').css('display', 'block');
     $('.mapPdf1 .imagePage1').removeClass('active');
     $('.actMap,.saveMap').addClass('active');
@@ -440,7 +454,12 @@ function extractPdfOpen() {
 function cancelExtractPDF() {
     extractOpen = false;
     // ipcRenderer.send('cancelExtractPDF', 310); 
-    $('#mergePDFcontainer').css('width', '310px');
+    // if(isExW){
+    //     $('#mergePDFcontainer').removeClass('exWe').addClass('exW');
+    // }else{
+    //     $('#mergePDFcontainer').css('width', '310px');
+    // }
+    
     $('.actMap,.saveMap').removeClass('active');
     $('.mapPdf2').css('display', 'none').html('');
     $(`.deselectmapPdf2,.selectmapPdf2`).css('display', 'none');
@@ -470,7 +489,7 @@ $('body').on('click', '.mapPdf2 .imagePage1', function ($event, item = itemLoadP
         }
     }
 });
-
+checkAllMap1 = false;
 $('body').on('click', '.mapPdf1 .imagePage1', function ($event, item = itemLoadPdf) {
     if (extractOpen == false) {
         let has = $(this).hasClass('active');
@@ -479,16 +498,17 @@ $('body').on('click', '.mapPdf1 .imagePage1', function ($event, item = itemLoadP
             $(this).toggleClass('active')
         } else {
             $('.mapPdf1 .imagePage1').removeClass('active');
-            if (!has || item.ctrMap) {
+            if (!has || item.ctrMap || checkAllMap1) {
                 item.ctrMap = false;
+                checkAllMap1 = false;
                 $(this).addClass('active');
             }
         }
+        let all = $('.mapPdf1 .imagePage1.active');
         let view = null;
         if (!has) {
             view = document.getElementById(`${item.idtab}-file-${itemLoadPdf.seqNo}-page-${$(this).parent().attr('index')}`)
         } else {
-            let all = $('.mapPdf1 .imagePage1.active');
             if (all.length == 0) {
                 view = document.getElementById(`${item.idtab}-file-${itemLoadPdf.seqNo}-page-0`)
             } else {
@@ -499,6 +519,8 @@ $('body').on('click', '.mapPdf1 .imagePage1', function ($event, item = itemLoadP
         if (view) {
             view.scrollIntoView({ behavior: 'auto', block: "start" });
         }
+        
+        checkAllMap1 = all.length == itemLoadPdf.detailMerge.image.length;
     }
 
 });
@@ -541,6 +563,7 @@ function rotateFKBehind(left) {
 
 function rotateFKMapPage(page, rotLeft) {
     let parent = page.parentElement;
+    let idex = parent.getAttribute('index');
     let width = parent.getAttribute('shadow-child-width');;
     let height = parent.getAttribute('shadow-child-height');;
     let rotate = +parent.getAttribute('rotate');
@@ -556,6 +579,7 @@ function rotateFKMapPage(page, rotLeft) {
     parent.style.height = `${(rotate == 90 || rotate == 270) ? width : height}px`;
     ['r90deg', 'r180deg', 'r270deg'].forEach(item => page.classList.remove(item));
     page.classList.add(`r${rotate}deg`);
+    itemLoadPdf.detailMerge.image[idex].rotate = rotate
 }
 
 function deletePage1() {

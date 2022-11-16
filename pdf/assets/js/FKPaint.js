@@ -88,6 +88,7 @@
             this.onDrawShape = false;
             this.idSvg = this._UUID();
             this.stampMode = false;
+            this.callBackScrollNew = null
             this._handleMousewheel = function (event) {
                 if (event.ctrlKey == true && event.x != null && event.y != null) {
                     event.preventDefault();
@@ -103,7 +104,6 @@
             // ~ FKVL
             this._handleMouseDown = function (event) {
                 event.preventDefault();
-                
                 if (event.which === 1 && _this.canPaint == true) {
                     _this.lz = _this._data.length;
                     _this._mouseButtonDown = true;
@@ -195,8 +195,14 @@
                     _this.onDrawShape = false;
                     _this.callBackShape({event, pageNumber : _this.pageNumber, type : 'mouseUp', idSVG : _this.idSvg})
                 }
-                _this._scrollbarAction = false;
-                if(_this.callBackScrollBar && event.which == 2) _this.callBackScrollBar({ scroll: false , mouseUp : true});
+                if(_this.callBackScrollBar && _this._scrollbarAction == true) {
+                    _this.callBackScrollBar({ scroll: false , mouseUp : true});
+                    _this._scrollbarAction = false;
+                    if(_this.callBackScrollNew){
+                        _this.callBackScrollNew();
+                        _this.callBackScrollNew = null;
+                    }
+                }
             };
 
             this._handleTouchStart = function (event) {
@@ -332,9 +338,14 @@
                     _this.onDrawShape = false;
                     _this.callBackShape({event : event.touches[0],touch : event.touches[0], pageNumber : _this.pageNumber, type : 'touchEnd', idSVG : _this.idSvg})
                 }
-
-                _this._scrollbarAction = false;
-                _this.callBackScrollBar({ scroll: false });
+                if(_this._scrollbarAction ==true){
+                    _this.callBackScrollBar({ scroll: false});
+                    _this._scrollbarAction = false;
+                    if(_this.callBackScrollNew){
+                        _this.callBackScrollNew();
+                        _this.callBackScrollNew = null;
+                    }
+                }
             };
 
             this.velocityFilterWeight = options.velocityFilterWeight || 0.7;
@@ -984,7 +995,10 @@
         FKPaint.prototype.setShapeDraw = function (canDraw) {
             this.canDrawShape = canDraw;
         };
-
+        FKPaint.prototype.setScroll = function (canScroll,callback) {
+            this.callBackScrollNew = callback;
+            this._scrollbarAction = canScroll;
+        };
         FKPaint.prototype.getIdSvg = function () {
            return this.idSvg;
         };

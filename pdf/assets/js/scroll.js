@@ -69,6 +69,7 @@ function scrollFileCallBack(dataScroll){
 		clearSelect(true);
 		removeShapeSltor();
 		$('.stampProdCon').removeClass('active');
+		
 	}else{
 		setCursor();
 	}

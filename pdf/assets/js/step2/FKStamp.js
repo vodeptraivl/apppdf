@@ -290,7 +290,7 @@ function drawContentSVG(){
 function transformSignLayout(){
     if((detailSignStamp.signdateflag == '1')){
         let nodeDepartment = document.querySelector('#departmentFull');
-        nodeDepartment.insertAdjacentHTML('afterend',`<text id="yearFull" class="yearFull" x="50" y="51" dominant-baseline="middle" text-anchor="middle" fill="red" style="font-size: 11px;font-family: 'ＭＳ Ｐゴシック';font-weight: 600;letter-spacing: 1px;"></text>`)
+        nodeDepartment.insertAdjacentHTML('afterend',`<text id="yearFull" class="yearFull" x="50" y="51" dominant-baseline="middle" text-anchor="middle" fill="red" style="font-size: 14px;font-family: 'ＭＳ Ｐゴシック';font-weight: 600;"></text>`)
         $('#departmentFull').attr('x',10).attr('y',5.5).attr('width',80).attr('height',28);
         $('#nameFull').attr('x',10).attr('y',65).attr('width',80).attr('height',28);
     }else{
@@ -323,10 +323,30 @@ function drawDateInSVG(seperate = "."){
 }
 
 function drawName(){
+    $('#departmentFull p,#nameFull p').css('font-size','17px');
     $('#departmentInput').val(detailSignStamp.department);
     $('#nameInput').val(detailSignStamp.name);
     $('#departmentFull p').text(detailSignStamp.department);
     $('#nameFull p').text(detailSignStamp.name);
+    setTimeout(_=>{resizeTextStamp();},0)
+}
+
+function resizeTextStamp(){
+    let height1 =  $('#departmentFull p').height();
+    if(height1 > 17){
+        $('#departmentFull p').css('font-size','10px');
+    }
+    else{
+        $('#departmentFull p').css('font-size','17px');
+    }
+
+    let height2 =  $('#nameFull p').height();
+    if(height2 > 17){
+        $('#nameFull p').css('font-size','10px');
+    }else{
+        $('#nameFull p').css('font-size','17px');
+    }
+
 }
 
 function getJpDayOfWeek(day){
