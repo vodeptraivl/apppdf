@@ -43,6 +43,7 @@ $('body')
 }).on('mousedown', '.svg-container', (e) => {
     if(e.which == 2){
         e.preventDefault();
+        e.stopPropagation();
     }
     if(e.target.classList.value.indexOf("svg-container") > -1 || e.which == 2){
         let idtab = e.currentTarget.getAttribute('idtab');
@@ -165,13 +166,15 @@ function appendSvg(params, divMain) {
     let idMaker = common.UUID();
     let shapeEle = getShapeEle(params, idMaker,rotate);
     let maker = getShapeEleMK(idMaker);
+    let divMainD = document.querySelector(divMain);
     if ($(`#SVG${params.idSVG}`) == null || $(`#SVG${params.idSVG}`).length == 0) {
         let svg = `
             <svg id="SVG${params.idSVG}" class="svg-container curDrag zindx1" idtab="${tabCurrent}" FKSVG>
                 <defs id="defs-${params.idSVG}" class="defsContainer">${maker}</defs>
                 ${shapeEle}
             </svg>`;
-        $(divMain).append(svg);
+        let draf = divMainD.children[2];
+        draf.insertAdjacentHTML('afterend', svg);
     } else {
         document.querySelector(`#SVG${params.idSVG}`).insertAdjacentHTML('beforeend', `${shapeEle}`);
         document.querySelector(`#defs-${params.idSVG}`).insertAdjacentHTML('beforeend', `${maker}`);

@@ -323,28 +323,32 @@ function drawDateInSVG(seperate = "."){
 }
 
 function drawName(){
-    $('#departmentFull p,#nameFull p').css('font-size','17px');
     $('#departmentInput').val(detailSignStamp.department);
     $('#nameInput').val(detailSignStamp.name);
     $('#departmentFull p').text(detailSignStamp.department);
     $('#nameFull p').text(detailSignStamp.name);
-    setTimeout(_=>{resizeTextStamp();},0)
+    resizeTextStamp();
 }
 
 function resizeTextStamp(){
-    let height1 =  $('#departmentFull p').height();
-    if(height1 > 17){
-        $('#departmentFull p').css('font-size','10px');
-    }
-    else{
+    if(detailSignStamp.department.length < 4){
         $('#departmentFull p').css('font-size','17px');
     }
+    if(detailSignStamp.department.length == 4){
+        $('#departmentFull p').css('font-size','13px');
+    }
+    if(detailSignStamp.department.length > 4){
+        $('#departmentFull p').css('font-size','9px');
+    }
 
-    let height2 =  $('#nameFull p').height();
-    if(height2 > 17){
-        $('#nameFull p').css('font-size','10px');
-    }else{
+    if(detailSignStamp.name.length < 4){
         $('#nameFull p').css('font-size','17px');
+    }
+    if(detailSignStamp.name.length == 4){
+        $('#nameFull p').css('font-size','13px');
+    }
+    if(detailSignStamp.name.length > 4){
+        $('#nameFull p').css('font-size','9px');
     }
 
 }

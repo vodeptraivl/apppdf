@@ -64,7 +64,12 @@ function initScrollForExportDivMain(id){
 // ****************************************************************************************************************************************************************
 //process drag or scroll page PDF
 function scrollFileCallBack(dataScroll){
-	if(dataScroll.scroll == false) {; setTimeout(x=>{positionScroll = null},50)}
+	if(dataScroll.scroll == false) {; 
+		if(dragText == true){
+			$('.font-container').removeClass('zindx1 zindx2 zindx3').addClass('zindx3');
+		}
+		setTimeout(x=>{positionScroll = null},50)
+	}
 	if(dataScroll.scroll){
 		clearSelect(true);
 		removeShapeSltor();

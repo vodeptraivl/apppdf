@@ -142,6 +142,7 @@ var interValCheckUpdate = setInterval(_=>{
 var canDrawShape = false;
 var svgMoveEVent = null;
 var isStampOpen = false;
+var dragText = false;
 // END VARIABLE
 // ****************************************************************************************************************************************************************
 function getScale(viewPortNor){

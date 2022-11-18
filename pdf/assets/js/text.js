@@ -8,18 +8,11 @@ function setStartText(){
 		if(svgMoveEVent){
 			svgMoveEVent.setFontSize(fontSizeSelected);
 		}
-	});
-	
-	
-	$('body').on("mouseenter",'.textAreaAddtext',()=>
+	}).on("mouseenter",'.textAreaAddtext',()=>
 		focusText = true
-	);
-
-	$('body').on("mouseleave",'.textAreaAddtext',()=>
+	).on("mouseleave",'.textAreaAddtext',()=>
 		focusText = false
-	);
-	
-	$('body').on("click",'.font-container',(e)=>{
+	).on("click",'.font-container',(e)=>{
 		let target = e.currentTarget.getAttribute("id");
 		// if( selectedText == "" || selectedText != (target+"Text")){
 		$('.font-container').removeClass('on');
@@ -30,9 +23,7 @@ function setStartText(){
 		$('#setSize').val(pos.size);
 		// }
 		
-	});
-
-	$('body').on('click','.dragElem,.dot',(e)=> {
+	}).on('click','.dragElem,.dot',(e)=> {
 		$('.textAreaAddtext').blur(); 
 		// if( selectedText == "" || selectedText != (target+"Text")){
 		delDragtext();
@@ -43,16 +34,9 @@ function setStartText(){
 		interact('#'+e.currentTarget.parentElement.getAttribute('id')).resizable(true);
 		offScroll(false);
 		// }
-	});
-	
-
-	
-
-	$('body').on('mouseenter touchstart','.dragElem',()=> {
+	}).on('mouseenter touchstart','.dragElem',()=> {
 		onDragElement = true;
-	});
-
-	$('body').on('focus','.textAreaAddtext',(e)=> { 
+	}).on('focus','.textAreaAddtext',(e)=> { 
 		if(!typeText){
 			$('.textAreaAddtext').prop('selectionStart', 0).prop('selectionEnd',0); 
 			selectedText = e.currentTarget.getAttribute('id');
@@ -63,9 +47,7 @@ function setStartText(){
 			offScroll(true);
 		}
 		
-	});
-	
-	$('body').on('touchstart','.font-container',(e)=>{
+	}).on('touchstart','.font-container',(e)=>{
 		if(cantText){
 			if(e.touches.length >= 2){
 				let touchs = e.touches;
@@ -75,9 +57,7 @@ function setStartText(){
 			}
 		}
 		
-	});
-
-	$('body').on('touchmove','.font-container',(e)=>{
+	}).on('touchmove','.font-container',(e)=>{
 		if(cantText){
 			if(e.touches.length >= 2){
 				let touchs = e.touches;
@@ -86,9 +66,7 @@ function setStartText(){
 				zoomFileCallBack({touchs : [touch1, touch2], endTouch: false});
 			} 
 		}
-	});
-
-	$('body').on('touchend','.font-container',(e)=>{
+	}).on('touchend','.font-container',(e)=>{
 		if(cantText){
 			if(e.touches.length >= 2){
 				zoomFileCallBack({touchs : [], endTouch: true});
@@ -97,8 +75,37 @@ function setStartText(){
 			}
 		}
 		
-	});
-}
+	}).on("mousedown",'.textAreaAddtext',(event)=>{
+			if(event.which==2){
+				event.preventDefault();
+				event.stopPropagation();
+				
+				let idtab = event.currentTarget.parentElement.getAttribute('tab');
+				let ind = event.currentTarget.parentElement.getAttribute('index');
+				turnScroll3(idtab,ind, event);
+				// scrollFileCallBack({ x: event.clientX, y: event.clientY, scroll: true, which: event.which });
+				// $('.imgContainer').removeClass('active zindx3 zindx2 zindx1').addClass('zindx1');
+				
+			}
+		});
+	}
+
+	function turnScroll3(idtab,ind, e) {
+		if (allTabs != null && allTabs.length > 0) {
+			for (let i = 0; i < allTabs.length; i++) {
+				if (allTabs[i].idtab == idtab) {
+					allTabs[i].signaPads[ind].setScroll(true);
+					$('.textAreaAddtext').prop('selectionStart', 0).prop('selectionEnd',0); 
+					e.currentTarget.blur();
+					$('.font-container').removeClass('zindx1 zindx2 zindx3 on').addClass('zindx1');
+					dragText = true;
+					scrollFileCallBack({ x: e.clientX, y: e.clientY, scroll: true, which: e.which });
+					return;
+				}
+			}
+		}
+	};
+
 // ****************************************************************************************************************************************************************
 //ON OFF text button
 function setFont(e = null){
@@ -228,6 +235,8 @@ function callbackTextStart(e,e2=null,pageNumer,w = false,h = false){
 		'data-h':10,
 		'rotate':pageAddText.rotate,
 		'rotateReal':pageAddText.rotate,
+		'tab':tabCurrent,
+		'index' : pageAddText.index
 	});
 
 	mWT = w ;mHT = h;
@@ -629,7 +638,8 @@ function createTextCopy(textCop,value){
 		'data-calH':text.position[0].height,
 		'rotate':pageAddText.rotate,
 		'rotateReal':pageAddText.rotate,
-		'tab':tabCurrent
+		'tab':tabCurrent,
+		'index' : pageAddText.index
 	});
 
 	$('.divMain-'+itemLoadPdf.seqNo+'-page-'+(pageCurrent-1)+'-'+tabCurrent)[0].append(div);

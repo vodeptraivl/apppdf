@@ -75,12 +75,29 @@ function setAddImage() {
 		if(event.which==2){
 			event.preventDefault();
 			event.stopPropagation();
+			let idtab = event.currentTarget.parentElement.getAttribute('tab');
+			let ind = event.currentTarget.getAttribute('index');
+			turnScroll2(idtab,ind, event);
 			// scrollFileCallBack({ x: event.clientX, y: event.clientY, scroll: true, which: event.which });
 			// $('.imgContainer').removeClass('active zindx3 zindx2 zindx1').addClass('zindx1');
 			
 		}
 	});
 }
+
+function turnScroll2(idtab,ind, e) {
+    if (allTabs != null && allTabs.length > 0) {
+        for (let i = 0; i < allTabs.length; i++) {
+            if (allTabs[i].idtab == idtab) {
+                allTabs[i].signaPads[ind].setScroll(true);
+				setOffImage()
+				scrollFileCallBack({ x: e.clientX, y: e.clientY, scroll: true, which: e.which });
+				return;
+            }
+        }
+    }
+}
+
 
 // END ADD IMAGE
 // ****************************************************************************************************************************************************************
@@ -421,7 +438,8 @@ function handleImg(data, imgOld = false) {
 			'data-y': img.position[0].y,
 			'data-w': img.position[0].width,
 			'data-h': img.position[0].height,
-			'rotateReal': pageAddText.rotate
+			'rotateReal': pageAddText.rotate,
+			'index': pageAddText.index
 		});
 
 		$('.importLocal').removeClass('active clean');
